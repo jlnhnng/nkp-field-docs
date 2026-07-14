@@ -12,8 +12,9 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   language: en
+  custom_dir: docs/overrides
+  logo: assets/images/logo.png
   icon:
-    logo: material/kubernetes
     repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
