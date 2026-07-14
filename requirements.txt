@@ -1,0 +1,3 @@
+# Documentation tooling for the NKP Collection MkDocs site.
+# Install with: pip install -r requirements.txt
+mkdocs-material>=9.5,<10.0

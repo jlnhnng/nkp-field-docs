@@ -1,0 +1,18 @@
+# Folders
+.tmp
+
+# MkDocs build output
+site/
+
+# Python
+.venv/
+venv/
+__pycache__/
+
+# OpenTofu
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/*.tfvars
+**/tofu.tfvars.local
+**/.terraform.lock.hcl

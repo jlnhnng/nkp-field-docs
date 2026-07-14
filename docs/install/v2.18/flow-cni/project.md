@@ -1,0 +1,46 @@
+# Create a project
+
+> Tested with NKP 2.18.0 · Flow CNI path
+
+Project placement is independent of the cluster CNI.
+
+## Create and assign the project
+
+```bash
+export MANAGEMENT_KUBECONFIG="$HOME/nkp-mgmt-cluster.conf"
+export WORKSPACE_NAME=dev-workspace
+export CLUSTER_NAME=nkp-dev-cluster
+export PROJECT_NAME=demo-project
+export PROJECT_LABEL=environment
+export PROJECT_LABEL_VALUE=dev
+
+cat <<EOF | kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" apply -f -
+apiVersion: workspaces.kommander.mesosphere.io/v1alpha1
+kind: Project
+metadata:
+  name: ${PROJECT_NAME}
+  namespace: ${WORKSPACE_NAME}
+spec:
+  namespaceName: ${PROJECT_NAME}
+  placement:
+    clusterSelector:
+      matchLabels:
+        ${PROJECT_LABEL}: ${PROJECT_LABEL_VALUE}
+EOF
+
+kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
+  label cluster "${CLUSTER_NAME}" \
+  "${PROJECT_LABEL}=${PROJECT_LABEL_VALUE}" \
+  -n "${WORKSPACE_NAME}"
+```
+
+## Verify the project
+
+```bash
+kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
+  get project "${PROJECT_NAME}" -n "${WORKSPACE_NAME}"
+kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
+  get cluster "${CLUSTER_NAME}" -n "${WORKSPACE_NAME}" --show-labels
+```
+
+Validate application connectivity and network policies on the Flow CNI cluster.

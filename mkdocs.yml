@@ -1,0 +1,159 @@
+site_name: NKP Field Docs
+site_description: >-
+  Practical architecture and installation guidance for Nutanix Kubernetes
+  Platform engineers.
+site_author: Julian Hennig
+
+# Add site_url after assigning the Workers or custom domain.
+repo_name: jlnhnng/nkp-field-docs
+repo_url: https://github.com/jlnhnng/nkp-field-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/kubernetes
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: >-
+  Independent field documentation — not an official Nutanix publication.
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jlnhnng/nkp-field-docs
+
+nav:
+  - Home: index.md
+  - Architecture:
+      - Overview: architecture/index.md
+      - Core concepts:
+          - Clusters: architecture/clusters.md
+          - Workspaces and Projects: architecture/workspaces-and-projects.md
+      - Platform:
+          - Cluster Lifecycle: architecture/cluster-lifecycle.md
+          - Networking: architecture/networking.md
+          - Storage: architecture/storage.md
+          - Platform Applications: architecture/platform-applications.md
+          - Observability: architecture/observability.md
+          - AI Inference: architecture/ai-inference.md
+      - Deployment:
+          - Overview: architecture/deployment-models.md
+          - Availability and Recovery: architecture/availability-and-recovery.md
+          - Connected Deployment: architecture/connected-deployment.md
+          - Air-Gapped Deployment: architecture/air-gapped.md
+      - Reference:
+          - Open Source Components: architecture/open-source-primitives.md
+  - Installation:
+      - Overview: install/index.md
+      - Bootstrap Node: install/bootstrap-node/index.md
+      - NKP 2.18:
+          - Standard:
+              - Management Cluster: install/v2.18/standard/management-cluster.md
+              - Workspace: install/v2.18/standard/workspace.md
+              - Workload Cluster: install/v2.18/standard/workload-cluster.md
+              - Project: install/v2.18/standard/project.md
+          - Air-Gapped:
+              - Management Cluster: install/v2.18/airgapped/management-cluster.md
+              - Workspace: install/v2.18/airgapped/workspace.md
+              - Workload Cluster: install/v2.18/airgapped/workload-cluster.md
+              - Project: install/v2.18/airgapped/project.md
+          - Flow CNI:
+              - Management Cluster: install/v2.18/flow-cni/management-cluster.md
+              - Workspace: install/v2.18/flow-cni/workspace.md
+              - Workload Cluster: install/v2.18/flow-cni/workload-cluster.md
+              - Project: install/v2.18/flow-cni/project.md
+      - NKP 2.17:
+          - Standard:
+              - Management Cluster: install/v2.17/standard/management-cluster.md
+              - Workspace: install/v2.17/standard/workspace.md
+              - Workload Cluster: install/v2.17/standard/workload-cluster.md
+              - Project: install/v2.17/standard/project.md
+          - Air-Gapped:
+              - Management Cluster: install/v2.17/airgapped/management-cluster.md
+              - Workspace: install/v2.17/airgapped/workspace.md
+              - Workload Cluster: install/v2.17/airgapped/workload-cluster.md
+              - Project: install/v2.17/airgapped/project.md
+          - Flow CNI:
+              - Management Cluster: install/v2.17/flow-cni/management-cluster.md
+              - Workspace: install/v2.17/flow-cni/workspace.md
+              - Workload Cluster: install/v2.17/flow-cni/workload-cluster.md
+              - Project: install/v2.17/flow-cni/project.md
+  - Upgrades:
+      - Supported Paths: upgrades/index.md
+      - 2.17.0 to 2.17.1: upgrades/2.17.0-to-2.17.1.md
+      - 2.17.1 to 2.18.0: upgrades/2.17.1-to-2.18.0.md
+  - Troubleshooting:
+      - FAQ: troubleshooting/faq.md
+      - Support Bundle: troubleshooting/support-bundle.md
+  - Foundations:
+      - Learning Paths: start-here/index.md
+      - NKP in 10 Minutes: start-here/nkp-in-10-minutes.md
+      - From VMs to Kubernetes: start-here/from-vms-to-kubernetes.md
+      - Cloud Native Operations: start-here/cloud-native.md
+      - Kubernetes Fundamentals: start-here/kubernetes-fundamentals.md
+      - AI Inference Fundamentals: start-here/ai-inference-fundamentals.md
+      - Glossary: start-here/glossary.md

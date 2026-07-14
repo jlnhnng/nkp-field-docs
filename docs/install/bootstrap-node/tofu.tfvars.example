@@ -1,0 +1,18 @@
+# Copy this file to tofu.tfvars and replace every example value.
+
+nutanix_user     = "admin"
+nutanix_password = "REPLACE_WITH_PRISM_CENTRAL_PASSWORD"
+nutanix_endpoint = "pc.example.com"
+nutanix_port     = 9440
+nutanix_insecure = false
+
+prism_element_cluster_name = "PE-CLUSTER"
+subnet_name                = "PRIMARY-NETWORK"
+image_name                 = "noble-server-cloudimg-amd64.img"
+
+vm_name      = "nkp-bootstrap"
+num_vcpus    = 4
+memory_gb    = 8
+disk_size_gb = 100
+
+ssh_public_key = "ssh-ed25519 REPLACE_WITH_YOUR_PUBLIC_KEY"
