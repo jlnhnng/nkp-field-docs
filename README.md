@@ -18,24 +18,11 @@ pip install -r requirements.txt
 mkdocs serve   # http://127.0.0.1:8000
 ```
 
-## Cloudflare Workers
+## GitHub Pages
 
-The MkDocs site is deployed as
-[Cloudflare Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/).
-`wrangler.jsonc` publishes the generated `site/` directory.
+The MkDocs site is published to
+[GitHub Pages](https://jlnhnng.github.io/nkp-field-docs/) by
+`.github/workflows/docs.yml`.
 
-The GitHub Actions workflow builds and deploys every push to `main`. Configure
-these repository secrets before the first deployment:
-
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_API_TOKEN` with permission to deploy Workers
-
-To deploy from a local workstation:
-
-```bash
-mkdocs build --strict --site-dir site
-npx wrangler@latest deploy
-```
-
-After assigning a `workers.dev` or custom domain, add its canonical URL as
-`site_url` in `mkdocs.yml`.
+Every push to `main` runs a strict MkDocs build, uploads the generated `site/`
+artifact, and deploys it through the `github-pages` environment.

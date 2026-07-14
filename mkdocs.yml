@@ -4,7 +4,7 @@ site_description: >-
   Platform engineers.
 site_author: Julian Hennig
 
-# Add site_url after assigning the Workers or custom domain.
+site_url: https://jlnhnng.github.io/nkp-field-docs/
 repo_name: jlnhnng/nkp-field-docs
 repo_url: https://github.com/jlnhnng/nkp-field-docs
 edit_uri: edit/main/docs/
