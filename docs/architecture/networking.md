@@ -58,6 +58,10 @@ export LB_IP_RANGE=10.54.61.12-10.54.61.12
 The control plane address and service range must not be handed out by DHCP or used
 by another system.
 
+These stable endpoints are different from node addresses. CAPX-created Nutanix
+VMs normally receive node addresses from Nutanix IPAM or DHCP. CAPI can then
+replace a node without preserving the old VM's address.
+
 ## Ingress and certificates
 
 - **[Traefik](https://traefik.io/)** is the default ingress controller, exposing

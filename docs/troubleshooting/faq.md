@@ -35,6 +35,40 @@ Normally, no. The management cluster should be reserved for NKP controllers,
 fleet services, and platform administration. Run business applications on
 managed or attached workload clusters.
 
+## Do Kubernetes nodes need static IP addresses?
+
+Normally, no. With `nkp create cluster nutanix`, CAPX creates and replaces node
+VMs while Nutanix IPAM or DHCP assigns their addresses. The NKP CLI does not
+expose flags for assigning a fixed address to each Nutanix node.
+
+This is intentional. A `Machine` is replaceable infrastructure: when CAPI
+repairs, scales, or upgrades a cluster, it can create a new VM with a new address
+and remove the old one. Kubernetes Services, DNS, and the control plane endpoint
+provide stable access above those changing nodes.
+
+Do reserve static addresses for:
+
+- the Kubernetes control plane endpoint;
+- service `LoadBalancer` address ranges;
+- ingress or other explicitly designed external endpoints.
+
+Those addresses must be outside DHCP or Nutanix IPAM pools to prevent conflicts.
+
+If an organization requires already-created hosts with fixed addresses,
+`nkp create cluster preprovisioned` accepts an inventory of those hosts and
+connects to them over SSH. This is not a static-IP option for CAPX-created AHV
+VMs: the organization becomes responsible for provisioning, addressing, and
+maintaining the host inventory.
+
+The pre-provisioned provider still uses CAPI and supports NKP lifecycle
+operations for Kubernetes, the control plane, and core add-ons. It does not
+create, repair, or delete the underlying hosts. Scaling or replacing capacity
+therefore requires suitable hosts to be added to the external inventory.
+
+Use pre-provisioned infrastructure because the environment requires existing
+hosts—not only to make replaceable nodes look like traditional permanent VMs.
+See [From VMs to Kubernetes](../start-here/from-vms-to-kubernetes.md#stable-endpoints-replaceable-nodes).
+
 ## Can one management cluster manage multiple Prism Element clusters?
 
 Yes. A management cluster can manage workload clusters on multiple Prism Element

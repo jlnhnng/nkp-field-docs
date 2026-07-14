@@ -115,6 +115,44 @@ known configuration, then restore persistent state when required.
 **Cloud native approach:** roll out a new image or declared version while
 controllers maintain the required availability.
 
+## Stable endpoints, replaceable nodes
+
+A common infrastructure instinct is to assign every Kubernetes node a permanent
+IP address. That makes sense when a server is a long-lived identity. It conflicts
+with the CAPI model, where a node is one replaceable instance of a declared
+`Machine`.
+
+During repair, scaling, or an upgrade, CAPI can:
+
+1. create a new VM from the declared image and machine template;
+2. obtain an address from infrastructure IPAM or DHCP;
+3. join the new node to Kubernetes;
+4. drain and remove the old node.
+
+The replacement does not need the old node's address. Stable access belongs at
+other layers:
+
+- the Kubernetes API uses a reserved control plane endpoint;
+- applications use Services and DNS rather than node addresses;
+- external traffic uses load balancer or ingress addresses;
+- persistent data uses storage abstractions rather than node-local identity.
+
+Dynamic assignment does not mean unmanaged addressing. The subnet, IP pool,
+routes, DNS, firewall rules, and reserved endpoint ranges still require deliberate
+design. Prefer subnet- or role-based policy over allowlists tied to individual
+node addresses.
+
+Pre-provisioned clusters are different: NKP receives an inventory of existing
+hosts and their addresses. Use that model when physical machines, an external
+provisioning system, or fixed host identities are genuine requirements. On
+Nutanix AHV, the normal CAPX workflow provides more lifecycle automation by
+creating replaceable VMs and using Nutanix IPAM or DHCP.
+
+Cluster API Provider Pre-Provisioned (CAPPP) still provides CAPI-based Kubernetes
+lifecycle operations. It stops at the host boundary: another system or team must
+provision, repair, replace, and decommission the machines in its inventory. CAPX
+extends reconciliation across that boundary and manages the AHV VMs as well.
+
 ## What still matters from infrastructure engineering
 
 Cloud native platforms still depend on strong infrastructure practice:
