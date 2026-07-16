@@ -85,6 +85,11 @@ an infrastructure isolation boundary by itself.
 Strong multi-tenancy may also require network policy, admission policy, dedicated
 nodes, or separate clusters.
 
+Putting worker node pools into different VLANs does not automatically place or
+isolate namespaces there. Kubernetes can reschedule pods between eligible nodes,
+and the CNI provides the pod network across the cluster. See
+[Worker VLANs](../architecture/networking.md#worker-vlans).
+
 ## Operational changes
 
 ### Configuration

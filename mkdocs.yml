@@ -94,6 +94,7 @@ nav:
       - Core concepts:
           - Clusters: architecture/clusters.md
           - Workspaces and Projects: architecture/workspaces-and-projects.md
+          - Multi-Tenancy: architecture/multi-tenancy.md
       - Platform:
           - Cluster Lifecycle: architecture/cluster-lifecycle.md
           - Networking: architecture/networking.md

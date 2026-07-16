@@ -69,6 +69,36 @@ Use pre-provisioned infrastructure because the environment requires existing
 hosts—not only to make replaceable nodes look like traditional permanent VMs.
 See [From VMs to Kubernetes](../start-here/from-vms-to-kubernetes.md#stable-endpoints-replaceable-nodes).
 
+## Should Kubernetes workers be placed in different VLANs?
+
+Not by default. A routed multi-subnet cluster can work, but VLANs are normally
+the wrong boundary for applications or NKP projects.
+
+A VLAN is attached to a worker VM. Pods are scheduled and rescheduled across
+eligible workers, so a namespace does not stay in one VLAN unless additional
+scheduling rules dedicate nodes to it. Even then, taints and affinity control
+placement—not network traffic.
+
+For shared clusters, use:
+
+- `NetworkPolicy` for pod and namespace traffic;
+- RBAC for API access;
+- quotas for shared capacity;
+- workload policy for pod security;
+- dedicated node pools only where hardware or capacity separation is required.
+
+Use a dedicated workload cluster when a tenant needs a physical network or
+stronger security boundary.
+
+NKP can select a Nutanix subnet for a worker node pool with
+`nkp create nodepool nutanix --subnets`. Use this for a validated infrastructure
+requirement, not to recreate a VLAN-per-application VM design. All worker
+subnets must provide the connectivity required by the selected CNI, Kubernetes
+control plane, storage, registries, and platform services.
+
+See [Worker VLANs](../architecture/networking.md#worker-vlans) for design and
+validation guidance.
+
 ## Can one management cluster manage multiple Prism Element clusters?
 
 Yes. A management cluster can manage workload clusters on multiple Prism Element

@@ -129,6 +129,9 @@ Use a namespace when teams can safely share the cluster. Use separate clusters
 when requirements demand independent lifecycle, failure domains, versions, or
 stronger isolation.
 
+See [Multi-tenancy](../architecture/multi-tenancy.md) for shared-cluster,
+dedicated-cluster, and NKP organizational patterns.
+
 !!! tip "Field note: start with owner references"
     When troubleshooting a pod, inspect its owner references. Move upward from
     the pod to its ReplicaSet, Deployment, Helm release, or Flux resource until

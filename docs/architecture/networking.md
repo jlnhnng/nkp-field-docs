@@ -62,6 +62,68 @@ These stable endpoints are different from node addresses. CAPX-created Nutanix
 VMs normally receive node addresses from Nutanix IPAM or DHCP. CAPI can then
 replace a node without preserving the old VM's address.
 
+## Worker VLANs
+
+Kubernetes does not require every worker to be in one Layer 2 broadcast domain.
+Nodes can use routed subnets when the CNI and all cluster dependencies have the
+required connectivity. This does not mean that assigning a VLAN to each
+application team is a useful Kubernetes multi-tenancy design.
+
+A VLAN follows the worker VM. A Kubernetes namespace and its pods do not:
+
+- the scheduler can place a pod on any eligible node;
+- a replacement pod can start on a different node;
+- a node pool can scale or be replaced through Cluster API;
+- Services route traffic independently of the physical worker subnet.
+
+With NKP's default Cilium configuration, traffic between nodes is normally
+encapsulated. An underlay firewall then sees traffic between node addresses
+rather than Kubernetes namespace or pod identity. Blocking that tunnel traffic
+can break pod connectivity instead of isolating one tenant.
+
+Use Kubernetes `NetworkPolicy` for application-level traffic rules. Use
+namespaces, RBAC, quotas, and workload policy together for shared-cluster
+[multi-tenancy](multi-tenancy.md). When a tenant requires a physical network
+boundary, a dedicated workload cluster is usually clearer than dividing the
+workers of one cluster into tenant VLANs.
+
+### When separate worker subnets can make sense
+
+Separate subnets can be valid when they represent an infrastructure requirement,
+for example:
+
+- a node pool with specialized hardware or network access;
+- a controlled ingress, egress, or DMZ role;
+- placement across routed infrastructure or failure domains;
+- a validated requirement for dedicated tenant nodes.
+
+NKP allows a subnet to be selected when a Nutanix worker node pool is created.
+For example, `nkp create nodepool nutanix` exposes the `--subnets` option. This
+assigns networking to the node pool; it does not associate a subnet with an NKP
+project or Kubernetes namespace.
+
+If only selected workloads may use that pool, combine node labels with taints,
+tolerations, and node affinity. Network policy is still required because
+scheduling controls do not filter traffic.
+
+!!! warning "Validate multi-subnet clusters before production"
+    Support and networking behavior depend on the NKP release, CNI, generated
+    Cilium configuration, and Nutanix network design. Flow CNI has a different
+    dataplane and must be validated separately. The presence of `--subnets` in
+    the CLI does not prove that every VLAN and firewall topology is supported.
+
+Before placing workers on different routed VLANs, verify:
+
+- bidirectional node-to-node and node-to-control-plane reachability;
+- every required Kubernetes and CNI port;
+- VXLAN connectivity and MTU when the generated Cilium configuration uses
+  tunnel mode;
+- access to DNS, NTP, registries, Prism Central, storage, ingress, and load
+  balancer addresses;
+- non-overlapping node, pod, service, and load balancer address ranges;
+- sufficient IPAM capacity for rolling upgrades and replacement nodes;
+- pod rescheduling, node replacement, scaling, and upgrades across the boundary.
+
 ## Ingress and certificates
 
 - **[Traefik](https://traefik.io/)** is the default ingress controller, exposing

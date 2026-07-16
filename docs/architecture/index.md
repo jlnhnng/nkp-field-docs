@@ -49,6 +49,8 @@ This approach makes desired state inspectable with standard Kubernetes tools.
   bootstrap clusters.
 - [Workspaces and projects](workspaces-and-projects.md): understand the
   organizational hierarchy.
+- [Multi-tenancy](multi-tenancy.md): map Kubernetes isolation controls to NKP
+  projects, workspaces, and cluster boundaries.
 - [Cluster lifecycle](cluster-lifecycle.md): learn how Cluster API and CAPX
   create and update clusters.
 - [AI inference](ai-inference.md): see how NKP, inference gateways, GPU workers,
