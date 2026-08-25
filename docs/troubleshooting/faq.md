@@ -156,6 +156,20 @@ Then inspect `NutanixCluster`, `NutanixMachine`, and controller logs. The first
 failed condition usually identifies whether the problem is infrastructure,
 bootstrap, networking, or control plane readiness.
 
+## How do I remove a failed management-cluster installation?
+
+Collect diagnostics before deleting it. If Cluster API resources were already
+pivoted into the self-managed management cluster, use its kubeconfig with
+`nkp delete cluster --self-managed`. The CLI temporarily moves the lifecycle
+resources out of the cluster so it can delete the infrastructure safely.
+
+If the installation failed before the pivot, the temporary kind bootstrap
+cluster can still own those resources and requires a different cleanup path.
+Do not delete VMs in Prism Central or remove Kubernetes finalizers first.
+
+Follow [Clean up a failed management-cluster installation](failed-management-cluster.md)
+to identify the owning cluster and use the correct command.
+
 ## Which namespace contains the management cluster?
 
 Discover it instead of assuming:
