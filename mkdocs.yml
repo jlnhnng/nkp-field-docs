@@ -147,8 +147,8 @@ nav:
               - Project: install/v2.17/flow-cni/project.md
   - Upgrades:
       - Supported Paths: upgrades/index.md
-      - 2.17.0 to 2.17.1: upgrades/2.17.0-to-2.17.1.md
-      - 2.17.1 to 2.18.0: upgrades/2.17.1-to-2.18.0.md
+      - 2.17.x to 2.18.0: upgrades/2.17.1-to-2.18.0.md
+      - Optional 2.17.0 to 2.17.1: upgrades/2.17.0-to-2.17.1.md
   - Troubleshooting:
       - FAQ: troubleshooting/faq.md
       - Support Bundle: troubleshooting/support-bundle.md
