@@ -53,6 +53,8 @@ This approach makes desired state inspectable with standard Kubernetes tools.
   projects, workspaces, and cluster boundaries.
 - [Cluster lifecycle](cluster-lifecycle.md): learn how Cluster API and CAPX
   create and update clusters.
+- [Nutanix Database Service](database-services.md): connect Kubernetes
+  applications to databases managed through NDB.
 - [AI inference](ai-inference.md): see how NKP, inference gateways, GPU workers,
   and Nutanix storage fit together.
 - [Availability and recovery](availability-and-recovery.md): design management

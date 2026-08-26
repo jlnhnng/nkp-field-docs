@@ -57,5 +57,6 @@ and configuration. Apply cluster-specific overrides sparingly.
 ## Related concepts
 
 - [Workspaces and projects](workspaces-and-projects.md)
+- [Nutanix Database Service](database-services.md)
 - [Observability](observability.md)
 - [Air-gapped deployment](air-gapped.md)

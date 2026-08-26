@@ -100,6 +100,7 @@ nav:
           - Networking: architecture/networking.md
           - Storage: architecture/storage.md
           - Platform Applications: architecture/platform-applications.md
+          - Database Services: architecture/database-services.md
           - Observability: architecture/observability.md
           - AI Inference: architecture/ai-inference.md
       - Deployment:
@@ -150,7 +151,6 @@ nav:
       - 2.17.1 to 2.18.0: upgrades/2.17.1-to-2.18.0.md
   - Troubleshooting:
       - FAQ: troubleshooting/faq.md
-      - Failed Management Cluster: troubleshooting/failed-management-cluster.md
       - Support Bundle: troubleshooting/support-bundle.md
   - Foundations:
       - Learning Paths: start-here/index.md

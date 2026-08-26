@@ -158,17 +158,26 @@ bootstrap, networking, or control plane readiness.
 
 ## How do I remove a failed management-cluster installation?
 
-Collect diagnostics before deleting it. If Cluster API resources were already
-pivoted into the self-managed management cluster, use its kubeconfig with
-`nkp delete cluster --self-managed`. The CLI temporarily moves the lifecycle
-resources out of the cluster so it can delete the infrastructure safely.
+First collect a [support bundle](support-bundle.md) with `nkp diagnose` and
+preserve the installer output. If the management-cluster API is reachable and
+Cluster API resources were pivoted into it, delete the self-managed cluster with:
 
-If the installation failed before the pivot, the temporary kind bootstrap
-cluster can still own those resources and requires a different cleanup path.
-Do not delete VMs in Prism Central or remove Kubernetes finalizers first.
+```bash
+nkp delete cluster \
+  --cluster-name="${CLUSTER_NAME}" \
+  --kubeconfig="/home/nutanix/nkp-mgmt-cluster.conf" \
+  --self-managed
+```
 
-Follow [Clean up a failed management-cluster installation](failed-management-cluster.md)
-to identify the owning cluster and use the correct command.
+The CLI creates a temporary bootstrap cluster, moves the lifecycle resources to
+it, and deletes the management cluster. Confirm the cluster name and kubeconfig
+before running this destructive command.
+
+If creation failed before the pivot, the existing
+`konvoy-capi-bootstrapper` kind cluster can still own the Cluster API resources.
+Preserve it and inspect `kubectl get clusters,machines -A` with its kubeconfig
+before cleanup. Do not start by deleting VMs in Prism Central or removing
+finalizers; doing so can leave managed resources behind.
 
 ## Which namespace contains the management cluster?
 
