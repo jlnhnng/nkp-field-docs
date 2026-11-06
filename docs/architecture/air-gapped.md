@@ -132,5 +132,5 @@ flowchart TB
 
 ## Installation guide
 
-See [Install an air-gapped NKP 2.18 management cluster](../install/v2.18/airgapped/management-cluster.md)
+See [Install an air-gapped NKP 2.19 management cluster](../install/v2.19/airgapped/management-cluster.md)
 for the bundle, image, registry, and cluster creation commands.

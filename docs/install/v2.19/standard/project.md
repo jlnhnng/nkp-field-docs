@@ -1,10 +1,11 @@
 # Create a project
 
-> Tested with NKP 2.18.0 · Flow CNI path
+> Tested with NKP 2.19.0
 
-Project placement is independent of the cluster CNI.
+A project gives an application team a consistent namespace and configuration
+boundary across selected clusters in one workspace.
 
-## Create and assign the project
+## Configure the project
 
 ```bash
 export MANAGEMENT_KUBECONFIG="$HOME/nkp-mgmt-cluster.conf"
@@ -13,7 +14,11 @@ export CLUSTER_NAME=nkp-dev-cluster
 export PROJECT_NAME=demo-project
 export PROJECT_LABEL=environment
 export PROJECT_LABEL_VALUE=dev
+```
 
+## Create the project
+
+```bash
 cat <<EOF | kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" apply -f -
 apiVersion: workspaces.kommander.mesosphere.io/v1alpha1
 kind: Project
@@ -27,7 +32,11 @@ spec:
       matchLabels:
         ${PROJECT_LABEL}: ${PROJECT_LABEL_VALUE}
 EOF
+```
 
+## Assign the cluster
+
+```bash
 kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
   label cluster "${CLUSTER_NAME}" \
   "${PROJECT_LABEL}=${PROJECT_LABEL_VALUE}" \
@@ -43,4 +52,8 @@ kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
   get cluster "${CLUSTER_NAME}" -n "${WORKSPACE_NAME}" --show-labels
 ```
 
-Validate application connectivity and network policies on the Flow CNI cluster.
+Confirm that the project namespace appears on the selected workload cluster.
+
+!!! tip "Field note: describe the cluster with labels"
+    Prefer stable labels such as environment, region, and compliance boundary.
+    Avoid labels that couple a cluster to only one project.

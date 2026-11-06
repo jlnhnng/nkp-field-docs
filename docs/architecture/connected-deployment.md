@@ -57,5 +57,5 @@ The exact endpoints depend on the NKP release and enabled applications.
 
 ## Installation guide
 
-See [Install an NKP 2.18 management cluster](../install/v2.18/standard/management-cluster.md)
+See [Install an NKP 2.19 management cluster](../install/v2.19/standard/management-cluster.md)
 for the field procedure.

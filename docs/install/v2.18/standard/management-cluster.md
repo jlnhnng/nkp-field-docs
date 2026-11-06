@@ -12,7 +12,8 @@ You need:
 - a [prepared bootstrap node](../../bootstrap-node/index.md);
 - Prism Central 7.5 or later and AOS 7.5 or later;
 - the NKP 2.18.0 bundle;
-- a supported NKP 2.18 node image in Prism Central;
+- a supported NKP 2.18 [node image](../../../node-images/index.md) in Prism
+  Central;
 - reserved control plane and load balancer IP addresses;
 - Prism Element, subnet, and storage container names;
 - registry mirror details.

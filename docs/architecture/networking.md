@@ -27,9 +27,10 @@ pod connectivity and enforces Kubernetes network policy.
     enforces Kubernetes network policy at the AHV layer, offloading it from the
     guest.
 
-    Flow CNI must be selected when you create the cluster. See
-    [Install NKP with Flow CNI](../install/v2.18/flow-cni/management-cluster.md) for the
-    field procedure.
+    Flow CNI must be selected when you create the cluster. The installation
+    guides in this documentation use Cilium. For the Flow CNI procedure, use the
+    NKP documentation on the Nutanix support portal or ask the Nutanix
+    Intelligent Virtual Agent (NIVA).
 
 ## Choosing a CNI
 

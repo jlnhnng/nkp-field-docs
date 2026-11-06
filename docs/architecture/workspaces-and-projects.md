@@ -61,6 +61,6 @@ This separates fleet administration from application-team access.
 
 ## Related guides
 
-- [Create a workspace](../install/v2.18/standard/workspace.md)
-- [Create a workload cluster](../install/v2.18/standard/workload-cluster.md)
-- [Create a project](../install/v2.18/standard/project.md)
+- [Create a workspace](../install/v2.19/standard/workspace.md)
+- [Create a workload cluster](../install/v2.19/standard/workload-cluster.md)
+- [Create a project](../install/v2.19/standard/project.md)

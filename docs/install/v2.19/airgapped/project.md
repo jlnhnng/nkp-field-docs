@@ -1,13 +1,21 @@
 # Create a project
 
-> Tested with NKP 2.17.1 · Flow CNI path
+> Tested with NKP 2.19.0 · Air-gapped path
+
+## Configure the project
 
 ```bash
 export MANAGEMENT_KUBECONFIG="$HOME/nkp-mgmt-cluster.conf"
 export WORKSPACE_NAME=dev-workspace
 export CLUSTER_NAME=nkp-dev-cluster
 export PROJECT_NAME=demo-project
+export PROJECT_LABEL=environment
+export PROJECT_LABEL_VALUE=dev
+```
 
+## Create and assign the project
+
+```bash
 cat <<EOF | kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" apply -f -
 apiVersion: workspaces.kommander.mesosphere.io/v1alpha1
 kind: Project
@@ -19,14 +27,16 @@ spec:
   placement:
     clusterSelector:
       matchLabels:
-        environment: dev
+        ${PROJECT_LABEL}: ${PROJECT_LABEL_VALUE}
 EOF
 
 kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
-  label cluster "${CLUSTER_NAME}" environment=dev -n "${WORKSPACE_NAME}"
+  label cluster "${CLUSTER_NAME}" \
+  "${PROJECT_LABEL}=${PROJECT_LABEL_VALUE}" \
+  -n "${WORKSPACE_NAME}"
 ```
 
-Verify:
+## Verify the project
 
 ```bash
 kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
@@ -35,4 +45,4 @@ kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" \
   get cluster "${CLUSTER_NAME}" -n "${WORKSPACE_NAME}" --show-labels
 ```
 
-Validate project application connectivity and network policies on Flow CNI.
+Verify that all project applications use internally mirrored images and charts.

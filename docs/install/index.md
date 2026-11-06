@@ -22,10 +22,13 @@ Use the standard path for a connected or registry-mirrored environment:
 Use the air-gapped guide when cluster nodes cannot access public registries,
 package repositories, or other internet services.
 
-## Flow CNI
+## Flow CNI (optional)
 
-Use the Flow CNI guide when the cluster requires Nutanix Flow CNI
-(OVN-Kubernetes) instead of the default Cilium CNI.
+The guides use the default Cilium CNI, which suits most installations. NKP also
+supports Nutanix Flow CNI (OVN-Kubernetes) as an option, but it is not covered
+here. See [Networking](../architecture/networking.md) to decide, and the NKP
+documentation on the Nutanix support portal or the Nutanix Intelligent Virtual
+Agent (NIVA) for the procedure.
 
 !!! tip
     Start with the newest NKP version unless you operate an existing older

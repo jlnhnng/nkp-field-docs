@@ -120,16 +120,18 @@ the Kommander UI, and centralized authentication or reconciliation services.
 Keep protected administrative kubeconfigs and a tested management-plane recovery
 procedure.
 
-## What is the difference between standard, air-gapped, and Flow CNI installs?
+## What is the difference between standard and air-gapped installs?
 
 - **Standard** uses the normal connected or registry-mirrored workflow.
 - **Air-gapped** transfers all required bundles, node images, packages, and
   registry content into a disconnected environment.
-- **Flow CNI** replaces the default Cilium network implementation with Nutanix
-  Flow CNI and requires a modified cluster manifest.
 
-Choose the path before cluster creation. Retrofitting a different CNI into a
-running cluster is disruptive.
+Both use the default Cilium CNI. Nutanix Flow CNI is an option that replaces
+Cilium and requires a modified cluster manifest. It is not covered in these
+guides.
+
+Choose the path and the CNI before cluster creation. Retrofitting a different CNI
+into a running cluster is disruptive.
 
 ## Does an air-gapped installation require an external registry?
 
@@ -193,11 +195,12 @@ the resource in CLI commands.
 
 ## Can I skip an intermediate NKP release during an upgrade?
 
-NKP 2.17.0 can upgrade directly to 2.18.0. The 2.17.1 patch release is optional
-for this path.
+NKP 2.17.0 can upgrade directly to 2.18.0, and NKP 2.18 can upgrade to 2.19.0.
+The 2.17.1 patch release is optional for the 2.18.0 path.
 
-Do not generalize this to other versions. Direct upgrade from 2.16.x to 2.18.0
-is not supported because it skips the 2.17 minor release. Always confirm the
+Do not generalize this to other versions. Direct upgrade from 2.17.x to 2.19.0
+is not supported because it skips the 2.18 minor release, and direct upgrade from
+2.16.x to 2.18.0 is not supported because it skips the 2.17 minor release. Always confirm the
 exact source and target versions in the release-specific upgrade path.
 
 Upgrade the management plane and verify it before upgrading managed workload

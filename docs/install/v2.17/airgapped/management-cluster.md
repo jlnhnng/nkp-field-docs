@@ -11,6 +11,8 @@ You need a [prepared bootstrap node](../../bootstrap-node/index.md), the NKP
 2.17.1 air-gapped bundle, a supported offline node image, reserved IP addresses,
 internal infrastructure services, and an image-distribution choice.
 
+> **Note:** The TUI workflow does not expose bundle or air-gapped fields; it covers standard cluster parameters such as Prism Central, subnet, VM image, endpoint IP, and storage. Follow this guide to use `--bundle` and `--airgapped` for air-gapped cluster creation.
+
 ## Install the bundle
 
 ```bash
@@ -49,11 +51,13 @@ echo
 
 ## Build an offline node image
 
-Skip this step if a supported image is already available:
+Skip this step if a supported image is already available. The
+[Node images](../../../node-images/index.md) chapter explains the requirements,
+options, and troubleshooting in detail.
 
 ```bash
 export OS=ubuntu-24.04
-export OS_BUNDLE_DIR=kib/artifacts
+export OS_BUNDLE_DIR=artifacts
 export BASE_IMAGE=ubuntu-24.04-server-cloudimg-amd64.img
 
 nkp create package-bundle \
