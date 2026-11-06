@@ -1,0 +1,103 @@
+/*
+ * NKP Field Docs
+ *
+ * A restrained visual treatment inspired by Nutanix product design. The site
+ * deliberately avoids official logo assets so it remains clearly independent,
+ * engineer-to-engineer documentation.
+ */
+
+:root {
+  --nkp-blue: #024da1;
+  --nkp-blue-light: #2f7dd3;
+  --nkp-ink: #18212b;
+  --nkp-border: #d9e0e7;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--nkp-ink);
+  --md-primary-fg-color--light: #263442;
+  --md-primary-fg-color--dark: #10171e;
+  --md-accent-fg-color: var(--nkp-blue);
+  --md-typeset-a-color: var(--nkp-blue);
+  --md-default-bg-color: #fbfcfd;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #111820;
+  --md-primary-fg-color--light: #263442;
+  --md-primary-fg-color--dark: #0b1015;
+  --md-accent-fg-color: #69aaf0;
+  --md-typeset-a-color: #69aaf0;
+  --md-default-bg-color: #151c24;
+  --nkp-border: #34414e;
+}
+
+body {
+  font-family:
+    Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.md-header {
+  border-bottom: 3px solid var(--nkp-blue);
+  box-shadow: none;
+}
+
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.md-typeset h1 {
+  color: var(--md-default-fg-color);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h2 {
+  border-bottom: 1px solid var(--nkp-border);
+  padding-bottom: 0.3rem;
+}
+
+.md-nav__link--active,
+.md-nav__link:focus,
+.md-nav__link:hover {
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset a {
+  text-underline-offset: 0.15em;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border: 1px solid var(--nkp-border);
+  border-radius: 0.25rem;
+  box-shadow: none;
+  transition:
+    border-color 120ms ease,
+    transform 120ms ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-1px);
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.2rem;
+  box-shadow: none;
+}
+
+.md-typeset code {
+  border-radius: 0.2rem;
+}
+
+.md-typeset table:not([class]) {
+  border: 1px solid var(--nkp-border);
+  box-shadow: none;
+}
+
+.md-footer {
+  border-top: 1px solid var(--nkp-border);
+}
