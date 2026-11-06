@@ -9,7 +9,7 @@ AHV using a registry mirror.
 
 You need:
 
-- a [prepared bootstrap node](../../bootstrap-node/index.md);
+- a [prepared bootstrap node](../bootstrap-node/index.md);
 - Prism Central and AOS versions supported by NKP 2.17.1;
 - the NKP 2.17.1 bundle;
 - a supported NKP 2.17 node image;

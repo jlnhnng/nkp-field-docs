@@ -1,45 +1,51 @@
-name: Deploy Docs to GitHub Pages
+name: Deploy Docs
+
+# Each NKP version is published with mike to the gh-pages branch.
+#   main        -> the current NKP version (MAIN_VERSION), aliased "latest"
+#   docs/<ver>  -> an older NKP version, for example docs/2.18
 
 on:
   push:
     branches:
       - main
+      - "docs/*"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: docs-deploy
+  cancel-in-progress: false
+
+env:
+  # NKP version documented on main. Update it when main moves to a new version.
+  MAIN_VERSION: "2.19"
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: mkdocs build --strict --site-dir site
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - run: mkdocs build --strict --site-dir "${RUNNER_TEMP}/site-check"
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Deploy current version
+        if: github.ref_name == 'main'
+        run: |
+          mike deploy --push --update-aliases "${MAIN_VERSION}" latest
+          mike set-default --push latest
+      - name: Deploy older version
+        if: startsWith(github.ref_name, 'docs/')
+        run: |
+          mike deploy --push "${GITHUB_REF_NAME#docs/}"

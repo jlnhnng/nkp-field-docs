@@ -7,7 +7,7 @@ registries or package repositories.
 
 ## Before you begin
 
-You need a [prepared bootstrap node](../../bootstrap-node/index.md), the NKP
+You need a [prepared bootstrap node](../bootstrap-node/index.md), the NKP
 2.17.1 air-gapped bundle, a supported offline node image, reserved IP addresses,
 internal infrastructure services, and an image-distribution choice.
 
@@ -51,9 +51,7 @@ echo
 
 ## Build an offline node image
 
-Skip this step if a supported image is already available. The
-[Node images](../../../node-images/index.md) chapter explains the requirements,
-options, and troubleshooting in detail.
+Skip this step if a supported image is already available:
 
 ```bash
 export OS=ubuntu-24.04

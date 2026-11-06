@@ -5,29 +5,21 @@ paths, Kubernetes versions, and image requirements vary between NKP releases.
 
 ## Supported paths
 
-Each upgrade moves to the next minor release. NKP 2.17.0 can upgrade directly to
-NKP 2.18.0, and NKP 2.18 can upgrade to NKP 2.19.0:
+This version covers the optional patch update from NKP 2.17.0 to 2.17.1:
 
 ```mermaid
 flowchart LR
-    a["NKP 2.17.0"] --> c["NKP 2.18.0"]
-    a -.-> b["NKP 2.17.1<br/>(optional patch update)"]
-    b --> c
-    c --> d["NKP 2.19.0"]
+    a["NKP 2.17.0"] -.-> b["NKP 2.17.1<br/>(optional patch update)"]
 ```
 
 Choose the applicable path:
 
-- [Upgrade from NKP 2.18.x to 2.19.0](2.18.0-to-2.19.0.md)
-- [Upgrade from NKP 2.17.x to 2.18.0](2.17.1-to-2.18.0.md)
 - [Optional patch upgrade from 2.17.0 to 2.17.1](2.17.0-to-2.17.1.md)
 
 !!! warning "Do not skip minor releases"
-    Direct upgrade from NKP 2.17.x to 2.19.0 is not supported. Upgrade to NKP
-    2.18 first. Direct upgrade from NKP 2.16.x to 2.18.0 is not supported either;
-    upgrade to a supported NKP 2.17 release first. Patch releases such as 2.17.1
-    can be skipped only when the release specification permits the exact source
-    and target path.
+    Upgrade one minor release at a time. Patch releases such as 2.17.1 can be
+    skipped only when the release specification permits the exact source and
+    target path.
 
 ## Before any upgrade
 

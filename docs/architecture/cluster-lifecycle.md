@@ -61,10 +61,6 @@ kubelet, containerd, and dependency versions baked in. In air-gapped mode these
 images can also embed the required operating system packages so nodes do not need
 internet access during provisioning.
 
-You can also build your own images with `nkp create image` on NKP Pro and
-Ultimate. See [Node images](../node-images/index.md) for when to use pre-built
-or custom images and how to build them.
-
 ## Day 2 operations
 
 Because clusters are Cluster API objects, Day 2 changes are declarative edits
@@ -87,6 +83,6 @@ vSphere — only the infrastructure provider changes.
 
 ## Related guides
 
-- [Install an NKP 2.19 management cluster](../install/v2.19/standard/management-cluster.md)
-- [Install an air-gapped management cluster](../install/v2.19/airgapped/management-cluster.md)
+- [Install an NKP management cluster](../install/standard/management-cluster.md)
+- [Install an air-gapped management cluster](../install/airgapped/management-cluster.md)
 - [Understand cluster types](clusters.md)
