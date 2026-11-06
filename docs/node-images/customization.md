@@ -4,8 +4,6 @@ These options extend the basic [connected](custom-connected.md) and
 [air-gapped](custom-airgapped.md) builds. Add them to the `nkp create image
 nutanix` command.
 
-> Based on the NKP 2.18 and 2.19 documentation. Not yet tested end to end.
-
 !!! tip "Keep it simple"
     Every customization is something you maintain. Use the options below, and
     ask Nutanix for guidance before going further. See

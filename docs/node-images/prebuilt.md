@@ -3,8 +3,6 @@
 Nutanix publishes ready-to-use node images for AHV. They are the quickest way to
 a working cluster and are available on every NKP licence tier.
 
-> Based on the NKP 2.18 and 2.19 documentation. Not yet tested end to end.
-
 ## Before you begin
 
 You need:

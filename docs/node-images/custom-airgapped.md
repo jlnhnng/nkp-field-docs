@@ -6,8 +6,6 @@ system packages. You therefore split the work in two:
 1. On a host **with** internet access, create a **package bundle**.
 2. Move the bundle into the restricted network and build the image there.
 
-> Based on the NKP 2.18 and 2.19 documentation. Not yet tested end to end.
-
 Read [Build a custom image](custom-connected.md) first. The licence, base image,
 and Prism Central requirements are the same.
 

@@ -97,6 +97,13 @@ nav:
           - Multi-Tenancy: architecture/multi-tenancy.md
       - Platform:
           - Cluster Lifecycle: architecture/cluster-lifecycle.md
+          - Node Images:
+              - Overview: node-images/index.md
+              - Pre-built Images: node-images/prebuilt.md
+              - Custom Image (Connected): node-images/custom-connected.md
+              - Custom Image (Air-Gapped): node-images/custom-airgapped.md
+              - Customization: node-images/customization.md
+              - Troubleshooting: node-images/troubleshooting.md
           - NKP Metal: architecture/nkp-metal.md
           - VM Operator: architecture/vm-operator.md
           - Networking: architecture/networking.md
@@ -148,13 +155,6 @@ nav:
               - Workspace: install/v2.17/airgapped/workspace.md
               - Workload Cluster: install/v2.17/airgapped/workload-cluster.md
               - Project: install/v2.17/airgapped/project.md
-  - Node Images:
-      - Overview: node-images/index.md
-      - Pre-built Images: node-images/prebuilt.md
-      - Custom Image (Connected): node-images/custom-connected.md
-      - Custom Image (Air-Gapped): node-images/custom-airgapped.md
-      - Customization: node-images/customization.md
-      - Troubleshooting: node-images/troubleshooting.md
   - Upgrades:
       - Supported Paths: upgrades/index.md
       - 2.18.x to 2.19.0: upgrades/2.18.0-to-2.19.0.md

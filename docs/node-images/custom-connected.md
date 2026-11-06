@@ -4,8 +4,6 @@ This guide builds an NKP node image on Nutanix AHV from a host with internet
 access. For an environment without internet access, use
 [Build a custom image: air-gapped](custom-airgapped.md).
 
-> Based on the NKP 2.18 and 2.19 documentation. Not yet tested end to end.
-
 ## Before you begin
 
 You need:
