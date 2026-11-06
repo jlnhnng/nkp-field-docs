@@ -1,6 +1,6 @@
 # Create a management cluster
 
-> Tested with NKP 2.18.0
+> Tested with NKP 2.19.0
 
 This guide creates a connected, self-managed NKP management cluster on Nutanix
 AHV using a registry mirror.
@@ -9,29 +9,40 @@ AHV using a registry mirror.
 
 You need:
 
-- a [prepared bootstrap node](../../bootstrap-node/index.md);
-- Prism Central 7.5 or later and AOS 7.5 or later;
-- the NKP 2.18.0 bundle;
-- a supported NKP 2.18 [node image](../../../node-images/index.md) in Prism
+- a [prepared bootstrap node](../bootstrap-node/index.md);
+- Prism Central 7.5 or 7.6 and AOS 7.5 or 7.6;
+- the NKP 2.19.0 bundle;
+- a supported NKP 2.19 [node image](../../node-images/index.md) in Prism
   Central;
 - reserved control plane and load balancer IP addresses;
 - Prism Element, subnet, and storage container names;
 - registry mirror details.
+
+!!! warning "Check before you start (NKP 2.19)"
+    - Kubernetes 1.36.2 is the default version. The matching node image is
+      Rocky Linux 9.8. Use the image name exactly as it appears in Prism Central.
+    - With Prism Central Projects 2.0, a cluster uses **one** Prism Central
+      project for all its resources, such as VMs and volume groups. To use a
+      user-defined project, add `--pc-project=<project-name>`. Omit the flag for
+      the default project (`_internal`). The older `--control-plane-pc-project`
+      and `--worker-pc-project` flags are deprecated. Prism Central, Prism
+      Element, and AOS must be 7.6 or later for a user-defined project. The
+      project cannot be changed after creation.
 
 ## Install the NKP CLI
 
 On the bootstrap node, extract the bundle and install the CLI:
 
 ```bash
-tar -xzvf nkp-bundle_v2.18.0_linux_amd64.tar.gz
-sudo install -m 0755 ./nkp-v2.18.0/cli/nkp /usr/local/bin/nkp
+tar -xzvf nkp-bundle_v2.19.0_linux_amd64.tar.gz
+sudo install -m 0755 ./nkp-v2.19.0/cli/nkp /usr/local/bin/nkp
 nkp version
 ```
 
 Load the bootstrap image:
 
 ```bash
-docker load --input nkp-v2.18.0/konvoy-bootstrap-image-v2.18.0.tar
+docker load --input nkp-v2.19.0/konvoy-bootstrap-image-v2.19.0.tar
 ```
 
 ## Configure the environment
@@ -48,7 +59,7 @@ export NUTANIX_PORT=9440
 export NUTANIX_PRISM_ELEMENT_CLUSTER_NAME=PE-CLUSTER
 export NUTANIX_SUBNET_NAME=PRIMARY-NETWORK
 export NUTANIX_STORAGE_CONTAINER_NAME=CONTAINER
-export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-rocky-9.7-release-cis-1.35.2.qcow2
+export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-rocky-9.8-release-cis-1.36.2.qcow2
 
 export CONTROL_PLANE_ENDPOINT_IP=192.0.2.10
 export LB_IP_RANGE=192.0.2.11-192.0.2.20

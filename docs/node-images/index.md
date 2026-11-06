@@ -18,7 +18,7 @@ You have two ways to get one:
 | **GPU and vGPU** | Ubuntu image supports GPU; Rocky image does not | Yes, depending on the operating system. Supported NVIDIA drivers can be installed with `--gpu-name` and `--vgpu-runfile` |
 | **FIPS** | Not supported | Yes, with `--fips`, on operating systems that support it |
 
-[^cis]: In NKP 2.18 and 2.19, CIS Level 1 hardening is available only in the
+[^cis]: In NKP 2.19, CIS Level 1 hardening is available only in the
     pre-built Rocky Linux and Ubuntu images. It is not a supported override for
     custom images. If you need CIS, use the pre-built image.
 
@@ -60,59 +60,28 @@ host and carry it into the restricted network. See
 ## Supported operating systems
 
 Support differs by NKP release and by feature (FIPS, air-gapped, GPU, vGPU).
-Always confirm the exact matrix in the Nutanix documentation for your release:
+Always confirm the exact matrix in the Nutanix documentation for your release on the Nutanix support portal.
 
-- [NKP 2.18 supported operating systems](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Platform-v2_18:top-nkp-supported-OS-c.html)
+Operating systems supported on Nutanix AHV:
 
-=== "NKP 2.18"
+| Operating system | Air-gapped | FIPS | FIPS air-gapped | GPU | GPU air-gapped | vGPU | Nutanix Image Builder |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Rocky Linux 9.8 | Yes | - | - | - | - | - | Yes |
+| Ubuntu 22.04 | Yes | - | - | Yes | Yes | - | Yes |
+| Ubuntu 24.04 | Yes | - | - | Yes | Yes | - | Yes |
+| RHEL 8.10 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| RHEL 9.6 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| RHEL 9.8 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
 
-    Operating systems supported on Nutanix AHV:
+All of them support the default configuration. A dash means not applicable.
+Kernel versions are on the portal page.
 
-    | Operating system | Air-gapped | FIPS | FIPS air-gapped | GPU | GPU air-gapped | vGPU | Nutanix Image Builder |
-    | --- | --- | --- | --- | --- | --- | --- | --- |
-    | Rocky Linux 9.7 | Yes | - | - | - | - | - | Yes |
-    | Ubuntu 22.04 | Yes | - | - | Yes | Yes | Yes | Yes |
-    | Ubuntu 24.04 | Yes | - | - | Yes | Yes | Yes | Yes |
-    | RHEL 8.10 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-    | RHEL 9.6 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+What this means for custom builds:
 
-    All of them support the default configuration. The table is for the
-    NKP 2.18 documentation. Kernel versions are on the portal page.
-
-    What this means for custom builds:
-
-    - **FIPS** images need RHEL.
-    - **GPU and vGPU** images need Ubuntu or RHEL. Rocky Linux does not support
-      GPU.
-    - **Rocky Linux** supports the default and air-gapped builds only.
-
-=== "NKP 2.19"
-
-    Operating systems supported on Nutanix AHV:
-
-    | Operating system | Air-gapped | FIPS | FIPS air-gapped | GPU | GPU air-gapped | vGPU | Nutanix Image Builder |
-    | --- | --- | --- | --- | --- | --- | --- | --- |
-    | Rocky Linux 9.8 | Yes | - | - | - | - | - | Yes |
-    | Ubuntu 22.04 | Yes | - | - | Yes | Yes | - | Yes |
-    | Ubuntu 24.04 | Yes | - | - | Yes | Yes | - | Yes |
-    | RHEL 8.10 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-    | RHEL 9.6 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-    | RHEL 9.8 | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-
-    All of them support the default configuration. A dash means not
-    applicable. The table is for the NKP 2.19 documentation, which uses
-    Kubernetes 1.36.2 by default. Kernel versions are on the portal page.
-
-    What this means for custom builds:
-
-    - **FIPS** images need RHEL.
-    - **GPU** images need Ubuntu or RHEL. Rocky Linux does not support GPU.
-    - **vGPU** images need RHEL.
-    - **Rocky Linux** supports the default and air-gapped builds only.
-
-    !!! warning "Ubuntu vGPU changed between releases"
-        The 2.18 table lists vGPU for Ubuntu 22.04 and 24.04. The 2.19 table
-        does not. If you use vGPU on Ubuntu, check this before you upgrade.
+- **FIPS** images need RHEL.
+- **GPU** images need Ubuntu or RHEL. Rocky Linux does not support GPU.
+- **vGPU** images need RHEL.
+- **Rocky Linux** supports the default and air-gapped builds only.
 
 !!! warning "Verify before you build"
     The lists above were gathered from public release information. They are

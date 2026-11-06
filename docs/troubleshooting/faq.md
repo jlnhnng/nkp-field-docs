@@ -195,12 +195,10 @@ the resource in CLI commands.
 
 ## Can I skip an intermediate NKP release during an upgrade?
 
-NKP 2.17.0 can upgrade directly to 2.18.0, and NKP 2.18 can upgrade to 2.19.0.
-The 2.17.1 patch release is optional for the 2.18.0 path.
+NKP 2.18 can upgrade directly to NKP 2.19.0.
 
 Do not generalize this to other versions. Direct upgrade from 2.17.x to 2.19.0
-is not supported because it skips the 2.18 minor release, and direct upgrade from
-2.16.x to 2.18.0 is not supported because it skips the 2.17 minor release. Always confirm the
+is not supported because it skips the 2.18 minor release. Always confirm the
 exact source and target versions in the release-specific upgrade path.
 
 Upgrade the management plane and verify it before upgrading managed workload

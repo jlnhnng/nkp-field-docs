@@ -97,7 +97,7 @@ in an air-gapped environment, because the builder cannot download a base image.
 
 Record the printed image name in `NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME` and use
 it in the
-[air-gapped management cluster guide](../install/v2.19/airgapped/management-cluster.md).
+[air-gapped management cluster guide](../install/airgapped/management-cluster.md).
 
 ## Optional: build through a bastion host
 

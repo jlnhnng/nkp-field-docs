@@ -125,7 +125,7 @@ export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-ubuntu-24.04-1.36.2-2026010112000
 
 Pass `NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME` to `--control-plane-vm-image` and
 `--worker-vm-image` in the
-[management cluster guide](../install/v2.19/standard/management-cluster.md).
+[management cluster guide](../install/standard/management-cluster.md).
 
 !!! tip "Field note: name builds so you can find them"
     Use `--extra-build-name` to add a suffix, such as the team or a change

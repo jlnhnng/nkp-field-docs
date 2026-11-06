@@ -49,4 +49,4 @@ details.
 
 - [Connected deployment](connected-deployment.md)
 - [Air-gapped deployment](air-gapped.md)
-- [Standard NKP 2.19 installation](../install/v2.19/standard/management-cluster.md)
+- [Standard NKP installation](../install/standard/management-cluster.md)

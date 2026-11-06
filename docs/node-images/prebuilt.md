@@ -47,7 +47,7 @@ nkp create cluster nutanix -c "${CLUSTER_NAME}" \
 ```
 
 The remaining flags are in the
-[management cluster guide](../install/v2.19/standard/management-cluster.md).
+[management cluster guide](../install/standard/management-cluster.md).
 
 !!! info "What you get"
     The pre-built operating system layer is hardened to CIS Level 1, and the NKP
