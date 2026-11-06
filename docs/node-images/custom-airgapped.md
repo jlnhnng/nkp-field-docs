@@ -25,12 +25,12 @@ You need:
 ## Step 1: Create the package bundle (connected host)
 
 ```bash
-tar -xzvf nkp-air-gapped-bundle_v2.19.0_linux_amd64.tar.gz
-cd nkp-v2.19.0
+tar -xzvf nkp-air-gapped-bundle_v2.18.0_linux_amd64.tar.gz
+cd nkp-v2.18.0
 sudo install -m 0755 ./cli/nkp /usr/local/bin/nkp
 
-docker load -i konvoy-bootstrap-image-v2.19.0.tar
-docker load -i nkp-image-builder-image-v2.19.0.tar
+docker load -i konvoy-bootstrap-image-v2.18.0.tar
+docker load -i nkp-image-builder-image-v2.18.0.tar
 ```
 
 ```bash
@@ -60,7 +60,7 @@ extracted on the bootstrap host.
 Load the image builder container on the bootstrap host:
 
 ```bash
-docker load -i nkp-image-builder-image-v2.19.0.tar
+docker load -i nkp-image-builder-image-v2.18.0.tar
 ```
 
 Set the environment:
@@ -97,7 +97,7 @@ in an air-gapped environment, because the builder cannot download a base image.
 
 Record the printed image name in `NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME` and use
 it in the
-[air-gapped management cluster guide](../install/v2.19/airgapped/management-cluster.md).
+[air-gapped management cluster guide](../install/airgapped/management-cluster.md).
 
 ## Optional: build through a bastion host
 
@@ -123,7 +123,7 @@ first-boot time because the node does not have to pull them. Pass one or more
 `.tar` files, comma-separated:
 
 ```bash
-  --bundle ./container-images/konvoy-image-bundle-v2.19.0.tar
+  --bundle ./container-images/konvoy-image-bundle-v2.18.0.tar
 ```
 
 !!! tip "Field note: rebuild the package bundle for every build"

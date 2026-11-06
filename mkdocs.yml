@@ -83,6 +83,8 @@ copyright: >-
   Independent field documentation — not an official Nutanix publication.
 
 extra:
+  version:
+    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/jlnhnng/nkp-field-docs
@@ -104,8 +106,6 @@ nav:
               - Custom Image (Air-Gapped): node-images/custom-airgapped.md
               - Customization: node-images/customization.md
               - Troubleshooting: node-images/troubleshooting.md
-          - NKP Metal: architecture/nkp-metal.md
-          - VM Operator: architecture/vm-operator.md
           - Networking: architecture/networking.md
           - Storage: architecture/storage.md
           - Platform Applications: architecture/platform-applications.md
@@ -122,44 +122,19 @@ nav:
   - Installation:
       - Overview: install/index.md
       - Bootstrap Node: install/bootstrap-node/index.md
-      - NKP 2.19:
-          - Standard:
-              - Management Cluster: install/v2.19/standard/management-cluster.md
-              - Workspace: install/v2.19/standard/workspace.md
-              - Workload Cluster: install/v2.19/standard/workload-cluster.md
-              - Project: install/v2.19/standard/project.md
-          - Air-Gapped:
-              - Management Cluster: install/v2.19/airgapped/management-cluster.md
-              - Workspace: install/v2.19/airgapped/workspace.md
-              - Workload Cluster: install/v2.19/airgapped/workload-cluster.md
-              - Project: install/v2.19/airgapped/project.md
-      - NKP 2.18:
-          - Standard:
-              - Management Cluster: install/v2.18/standard/management-cluster.md
-              - Workspace: install/v2.18/standard/workspace.md
-              - Workload Cluster: install/v2.18/standard/workload-cluster.md
-              - Project: install/v2.18/standard/project.md
-          - Air-Gapped:
-              - Management Cluster: install/v2.18/airgapped/management-cluster.md
-              - Workspace: install/v2.18/airgapped/workspace.md
-              - Workload Cluster: install/v2.18/airgapped/workload-cluster.md
-              - Project: install/v2.18/airgapped/project.md
-      - NKP 2.17:
-          - Standard:
-              - Management Cluster: install/v2.17/standard/management-cluster.md
-              - Workspace: install/v2.17/standard/workspace.md
-              - Workload Cluster: install/v2.17/standard/workload-cluster.md
-              - Project: install/v2.17/standard/project.md
-          - Air-Gapped:
-              - Management Cluster: install/v2.17/airgapped/management-cluster.md
-              - Workspace: install/v2.17/airgapped/workspace.md
-              - Workload Cluster: install/v2.17/airgapped/workload-cluster.md
-              - Project: install/v2.17/airgapped/project.md
+      - Standard:
+          - Management Cluster: install/standard/management-cluster.md
+          - Workspace: install/standard/workspace.md
+          - Workload Cluster: install/standard/workload-cluster.md
+          - Project: install/standard/project.md
+      - Air-Gapped:
+          - Management Cluster: install/airgapped/management-cluster.md
+          - Workspace: install/airgapped/workspace.md
+          - Workload Cluster: install/airgapped/workload-cluster.md
+          - Project: install/airgapped/project.md
   - Upgrades:
       - Supported Paths: upgrades/index.md
-      - 2.18.x to 2.19.0: upgrades/2.18.0-to-2.19.0.md
       - 2.17.x to 2.18.0: upgrades/2.17.1-to-2.18.0.md
-      - Optional 2.17.0 to 2.17.1: upgrades/2.17.0-to-2.17.1.md
   - Troubleshooting:
       - FAQ: troubleshooting/faq.md
       - Support Bundle: troubleshooting/support-bundle.md

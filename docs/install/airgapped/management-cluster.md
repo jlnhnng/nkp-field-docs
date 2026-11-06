@@ -1,29 +1,40 @@
 # Create an air-gapped management cluster
 
-> Tested with NKP 2.17.1
+> Tested with NKP 2.18.0
 
 This guide creates a management cluster whose nodes cannot access public
 registries or package repositories.
 
 ## Before you begin
 
-You need a [prepared bootstrap node](../../bootstrap-node/index.md), the NKP
-2.17.1 air-gapped bundle, a supported offline node image, reserved IP addresses,
-internal infrastructure services, and an image-distribution choice.
+You need:
+
+- a [prepared bootstrap node](../bootstrap-node/index.md);
+- Prism Central 7.5 or later and AOS 7.5 or later;
+- the NKP 2.18.0 air-gapped bundle;
+- an offline-capable NKP node image in Prism Central;
+- reserved cluster IP addresses and internal DNS, NTP, and storage services;
+- either the NKP built-in infrastructure registry or an external private
+  registry.
+
+Transfer all required artifacts into the restricted environment before removing
+bootstrap-host internet access.
 
 > **Note:** The TUI workflow does not expose bundle or air-gapped fields; it covers standard cluster parameters such as Prism Central, subnet, VM image, endpoint IP, and storage. Follow this guide to use `--bundle` and `--airgapped` for air-gapped cluster creation.
 
-## Install the bundle
+## Install the air-gapped bundle
 
 ```bash
 mkdir -p "$HOME/airgap-nkp"
 cd "$HOME/airgap-nkp"
-tar -xzvf nkp-air-gapped-bundle_v2.17.1_linux_amd64.tar.gz
-cd nkp-v2.17.1
+
+tar -xzvf nkp-air-gapped-bundle_v2.18.0_linux_amd64.tar.gz
+cd nkp-v2.18.0
 
 sudo install -m 0755 ./cli/nkp /usr/local/bin/nkp
-docker load -i konvoy-bootstrap-image-v2.17.1.tar
-docker load -i nkp-image-builder-image-v2.17.1.tar
+docker load -i konvoy-bootstrap-image-v2.18.0.tar
+docker load -i nkp-image-builder-image-v2.18.0.tar
+nkp version
 ```
 
 ## Configure the environment
@@ -38,7 +49,7 @@ export NUTANIX_PORT=9440
 export NUTANIX_PRISM_ELEMENT_CLUSTER_NAME=PE-CLUSTER
 export NUTANIX_SUBNET_NAME=PRIMARY-NETWORK
 export NUTANIX_STORAGE_CONTAINER_NAME=CONTAINER
-export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-ubuntu-24.04-1.34.3-YYYYMMDDHHMMSS
+export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-ubuntu-24.04-1.35.2-YYYYMMDDHHMMSS
 
 export CONTROL_PLANE_ENDPOINT_IP=192.0.2.10
 export LB_IP_RANGE=192.0.2.11-192.0.2.20
@@ -51,9 +62,9 @@ echo
 
 ## Build an offline node image
 
-Skip this step if a supported image is already available. The
-[Node images](../../../node-images/index.md) chapter explains the requirements,
-options, and troubleshooting in detail.
+Skip this section when a supported offline-capable NKP image is already in Prism
+Central. The [Node images](../../node-images/index.md) chapter explains the
+requirements, options, and troubleshooting in detail.
 
 ```bash
 export OS=ubuntu-24.04
@@ -72,12 +83,47 @@ nkp create image nutanix "${OS}" \
   --artifacts-directory "${OS_BUNDLE_DIR}"
 ```
 
+Record the generated Prism Central image name in
+`NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME`.
+
 ## Choose the registry
 
-Use the built-in registry by passing `--bundle`, or push the Konvoy, Kommander,
-and application bundles to an external private registry with `nkp push bundle`.
+### Built-in infrastructure registry
 
-## Create the cluster
+No registry preparation is required. Pass the container image bundles to
+`nkp create cluster` in the next section.
+
+### External private registry
+
+Configure the registry and push each bundle:
+
+```bash
+export REGISTRY_URL=https://registry.example.com/nkp
+export REGISTRY_USERNAME=admin
+export REGISTRY_CACERT="$HOME/certs/ca-chain.pem"
+
+read -r -s -p "Registry password: " REGISTRY_PASSWORD
+export REGISTRY_PASSWORD
+echo
+
+nkp push bundle \
+  --bundle ./container-images/konvoy-image-bundle-v2.18.0.tar \
+  --to-registry "${REGISTRY_URL}" \
+  --to-registry-username "${REGISTRY_USERNAME}" \
+  --to-registry-password "${REGISTRY_PASSWORD}" \
+  --to-registry-ca-cert-file "${REGISTRY_CACERT}"
+
+nkp push bundle \
+  --bundle ./container-images/kommander-image-bundle-v2.18.0.tar \
+  --to-registry "${REGISTRY_URL}" \
+  --to-registry-username "${REGISTRY_USERNAME}" \
+  --to-registry-password "${REGISTRY_PASSWORD}" \
+  --to-registry-ca-cert-file "${REGISTRY_CACERT}"
+```
+
+Push the application repository bundle using the same registry settings.
+
+## Create the cluster with the built-in registry
 
 ```bash
 nkp create cluster nutanix -c "${CLUSTER_NAME}" \
@@ -100,12 +146,22 @@ nkp create cluster nutanix -c "${CLUSTER_NAME}" \
   --self-managed
 ```
 
+For an external registry, replace `--bundle` with the applicable
+`--registry-mirror-*` and `--registry-*` options.
+
 ## Verify the cluster
 
 ```bash
 kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" get nodes
 kubectl --kubeconfig "${MANAGEMENT_KUBECONFIG}" get pods -A
+nkp get dashboard --kubeconfig "${MANAGEMENT_KUBECONFIG}"
 ```
+
+Check for image-pull errors before removing transferred bundles.
+
+!!! tip "Field note: prove the offline path"
+    Block public registry access during validation. A successful installation
+    while public services remain reachable does not prove the mirror is complete.
 
 ## Next step
 

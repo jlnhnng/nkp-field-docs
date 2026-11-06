@@ -36,7 +36,7 @@ OpenTofu if you automate Prism. Wait until the image state is **Active**.
 Record the image name and pass it to the cluster creation command:
 
 ```bash
-export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-rocky-9.8-release-cis-1.36.2.qcow2
+export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-rocky-9.7-release-cis-1.35.2.qcow2
 ```
 
 ```bash
@@ -47,7 +47,7 @@ nkp create cluster nutanix -c "${CLUSTER_NAME}" \
 ```
 
 The remaining flags are in the
-[management cluster guide](../install/v2.19/standard/management-cluster.md).
+[management cluster guide](../install/standard/management-cluster.md).
 
 !!! info "What you get"
     The pre-built operating system layer is hardened to CIS Level 1, and the NKP

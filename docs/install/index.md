@@ -1,6 +1,7 @@
 # Installation guides
 
-Choose the guide that matches the NKP version and deployment type.
+Choose the guide that matches your deployment type. Use the version selector
+in the header to switch between NKP versions.
 
 ## Prepare the bootstrap node
 
@@ -33,7 +34,7 @@ Agent (NIVA) for the procedure.
 !!! tip
     Start with the newest NKP version unless you operate an existing older
     environment. Commands, Kubernetes versions, node images, and known issues can
-    differ between releases.
+    differ between releases, so check the version selector in the header.
 
 ## Conventions
 

@@ -1,6 +1,6 @@
 # Create a management cluster
 
-> Tested with NKP 2.17.1
+> Tested with NKP 2.18.0
 
 This guide creates a connected, self-managed NKP management cluster on Nutanix
 AHV using a registry mirror.
@@ -9,23 +9,34 @@ AHV using a registry mirror.
 
 You need:
 
-- a [prepared bootstrap node](../../bootstrap-node/index.md);
-- Prism Central and AOS versions supported by NKP 2.17.1;
-- the NKP 2.17.1 bundle;
-- a supported NKP 2.17 node image;
+- a [prepared bootstrap node](../bootstrap-node/index.md);
+- Prism Central 7.5 or later and AOS 7.5 or later;
+- the NKP 2.18.0 bundle;
+- a supported NKP 2.18 [node image](../../node-images/index.md) in Prism
+  Central;
 - reserved control plane and load balancer IP addresses;
-- Prism Element, subnet, storage container, and registry mirror details.
+- Prism Element, subnet, and storage container names;
+- registry mirror details.
 
 ## Install the NKP CLI
 
+On the bootstrap node, extract the bundle and install the CLI:
+
 ```bash
-tar -xzvf nkp-bundle_v2.17.1_linux_amd64.tar.gz
-sudo install -m 0755 ./nkp-v2.17.1/cli/nkp /usr/local/bin/nkp
-docker load --input nkp-v2.17.1/konvoy-bootstrap-image-v2.17.1.tar
+tar -xzvf nkp-bundle_v2.18.0_linux_amd64.tar.gz
+sudo install -m 0755 ./nkp-v2.18.0/cli/nkp /usr/local/bin/nkp
 nkp version
 ```
 
+Load the bootstrap image:
+
+```bash
+docker load --input nkp-v2.18.0/konvoy-bootstrap-image-v2.18.0.tar
+```
+
 ## Configure the environment
+
+Replace every example value:
 
 ```bash
 export CLUSTER_NAME=nkp-mgmt-cluster
@@ -37,12 +48,16 @@ export NUTANIX_PORT=9440
 export NUTANIX_PRISM_ELEMENT_CLUSTER_NAME=PE-CLUSTER
 export NUTANIX_SUBNET_NAME=PRIMARY-NETWORK
 export NUTANIX_STORAGE_CONTAINER_NAME=CONTAINER
-export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-ubuntu-24.04-release-cis-1.34.3.qcow2
+export NUTANIX_MACHINE_TEMPLATE_IMAGE_NAME=nkp-rocky-9.7-release-cis-1.35.2.qcow2
 
 export CONTROL_PLANE_ENDPOINT_IP=192.0.2.10
 export LB_IP_RANGE=192.0.2.11-192.0.2.20
 export REGISTRY_MIRROR_URL=registry.example.com/docker.io
+```
 
+Read the Prism Central password without storing it in shell history:
+
+```bash
 read -r -s -p "Prism Central password: " NUTANIX_PASSWORD
 export NUTANIX_PASSWORD
 echo
@@ -74,7 +89,22 @@ nkp create cluster nutanix -c "${CLUSTER_NAME}" \
   --self-managed
 ```
 
-Use trusted certificates and remove the insecure options in production.
+!!! warning "Lab-only TLS options"
+    `--insecure` and `--skip-preflight-checks=Registry` are appropriate only when
+    the lab uses untrusted certificates. Configure trusted certificate
+    authorities and remove these options in production.
+
+## Monitor provisioning
+
+While the management cluster is created:
+
+```bash
+kind get kubeconfig --name konvoy-capi-bootstrapper > bootstrap-cluster.conf
+kubectl --kubeconfig bootstrap-cluster.conf get clusters,machines -A
+kubectl --kubeconfig bootstrap-cluster.conf get nutanixmachines -A
+```
+
+Do not remove the temporary kind cluster before the pivot completes.
 
 ## Verify the management cluster
 
@@ -87,4 +117,4 @@ Log in to the NKP UI and apply the required license.
 
 ## Next step
 
-[Create a workspace](workspace.md).
+[Create a workspace](workspace.md) for the first workload cluster.

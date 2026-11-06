@@ -87,6 +87,6 @@ vSphere — only the infrastructure provider changes.
 
 ## Related guides
 
-- [Install an NKP 2.19 management cluster](../install/v2.19/standard/management-cluster.md)
-- [Install an air-gapped management cluster](../install/v2.19/airgapped/management-cluster.md)
+- [Install an NKP management cluster](../install/standard/management-cluster.md)
+- [Install an air-gapped management cluster](../install/airgapped/management-cluster.md)
 - [Understand cluster types](clusters.md)

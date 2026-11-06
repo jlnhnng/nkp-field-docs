@@ -27,7 +27,7 @@ Run `nkp create image nutanix --help` to see the options for your CLI version.
 ## FIPS
 
 Add `--fips` to the build. For an air-gapped build, also create the package bundle
-with `--fips`. In the NKP 2.18 and 2.19 support matrices, FIPS images are
+with `--fips`. In the NKP 2.18 support matrix, FIPS images are
 available on RHEL only. Check the matrix for your release first.
 
 ```bash
@@ -39,7 +39,7 @@ nkp create image nutanix rhel-9.6 --fips \
 ## GPU and vGPU
 
 GPU images are supported on Ubuntu and RHEL, not on Rocky Linux. vGPU images are
-supported on Ubuntu and RHEL in NKP 2.18, and on RHEL only in NKP 2.19. For GPU
+supported on Ubuntu and RHEL. For GPU
 passthrough, add `--gpu-name` so the builder installs the driver:
 
 ```bash
