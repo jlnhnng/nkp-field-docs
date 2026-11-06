@@ -43,9 +43,10 @@ jobs:
       - name: Deploy current version
         if: github.ref_name == 'main'
         run: |
-          mike deploy --push --update-aliases "${MAIN_VERSION}" latest
+          mike deploy --push --update-aliases --title "v${MAIN_VERSION}" "${MAIN_VERSION}" latest
           mike set-default --push latest
       - name: Deploy older version
         if: startsWith(github.ref_name, 'docs/')
         run: |
-          mike deploy --push "${GITHUB_REF_NAME#docs/}"
+          VERSION="${GITHUB_REF_NAME#docs/}"
+          mike deploy --push --title "v${VERSION}" "${VERSION}"
